@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, Blueprint
 from flask_bootstrap import Bootstrap
 
 bootstrap=Bootstrap()
@@ -13,4 +13,3 @@ def create_app():
 					   static_folder='static',
 					   static_url_path='static')
 	return app
-# from app import routes
