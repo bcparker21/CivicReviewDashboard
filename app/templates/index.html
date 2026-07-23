@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+	<div class="col-sm-4">
+		<h1 class="text-center">Plan Review</h1>
+		<p>
+			The City of Bellevue contracts with <a href="https://safebuilt.com/" target="_blank">SAFEbuilt</a> for building permit plan review services. When an application is submitted, City Staff will do a preliminary review for compliance with Bellevue City Code standards such as setbacks and height. Once Staff has determined that they meet zoning standards, the application is transmitted to the SAFEbuilt plan reviewers. Here are some statistics on the average times that it takes to get through the plan review process:
+		</p>
+		<table class="table">
+			<tr>
+				<td>
+					Average Preapproval Time:
+				</td>
+				<td>
+					{{ "{:,.1f}".format(preapproval_time) }} days
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Average Plan Review Time:
+				</td>
+				<td>
+					{{ "{:,.1f}".format(plan_review_time) }} days
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Average Time for Applicants to Resubmit Plans:
+				</td>
+				<td>
+					{{ "{:,.1f}".format(resubmittal_time) }} days
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Average Number of Plan Reviews:
+				</td>
+				<td>
+					{{ "{:,.1f}".format(num_reviews) }}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<strong>Average Time from Submittal to Receipt of Building Permit:</strong>
+				</td>
+				<td>
+					<strong>{{ "{:,.1f}".format(final_approval_time) }} days</strong>
+				</td>
+			</tr>
+		</table>
+		<p>
+			Plan reviews vary in complexity and by project type, below is a plot of the average time from application submittal to receipt of building permit based on project type. The thicker the blue area, the more often a plan is being approved in that time span.
+		</p>
+		<img>{{ vfig | safe }}</img>
+	</div>
+	<div class="col-sm-4">
+		<h1 class="text-center">Inspections</h1>
+		<p>
+			The City of Bellevue contracts with <a href="https://safebuilt.com/" target="_blank">SAFEbuilt</a> for building inspection services. Once a permit is issued, builders call in inspections for each step in the process. Below are some performance statistics for the inspection process.
+		</p>
+		<table class="table">
+			<tr>
+				<td>
+					Average Time from Inspection Request to Inspection:
+				</td>
+				<td>
+					{{ "{:,.1f}".format(inspection_scheduled_days) }} days
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Average Days Between Inspections:
+				</td>
+				<td>
+					{{ "{:,.1f}".format(days_between_inspections) }} days
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Average Number of Inspections:
+				</td>
+				<td>
+					{{ "{:,.1f}".format(number_of_inspections) }}
+				</td>
+			</tr>
+		</table>
+		<p>
+			As the City of Bellevue has only had the ability to collect data since February, the inspection information is limited as no new construction has completed the building process and received a certificate of occupancy. As more projects are completed, this dashboard will be updated to become more robust.
+		</p>
+	</div>
+	<div class="col-sm-4">
+		<h1 class="text-center">General Building Statistics</h1>
+		<h4 class="text-center">Total Square Footage by Project Type</h4>
+		<h1>{{ fig | safe}}</h1>
+	</div>
+</div>
+{% endblock %}
