@@ -15,10 +15,10 @@ import numpy as np
 import pandas as pd
 import geopandas as gpd
 import seaborn as sns
-import requests, io, base64
+import requests, io, base64, os
 from app.main import bp
 
-api_key='cr_pk_live_o4ovygBjeU4oCEu9rIqfIc777UA1Iz6k'
+api_key=os.getenv('cr_api_key')
 base_url='https://api.civicreview.com/public'
 all_permits_url='https://api.civicreview.com/public/v1/permits'
 params={'Authorization':'Bearer {}'.format(api_key)}
@@ -152,16 +152,3 @@ def index():
 							days_between_inspections=df['Average Between Inspection Days'].mean(),
 							number_of_inspections=df['Number of Inspections'].mean()
 							)
-# # =======
-# 				color=factor_cmap('Project Type','Category20_{}'.format(len(list(df['Project Type']))),list(df['Project Type'])),
-# 				legend_group="Project Type")
-# 	fig.add_layout(fig.legend[0], "above")
-# 	fig.legend.ncols=int(len(df['Project Type'].unique())/2)
-# 	fig.legend.title="Project Type"
-# 	hover=HoverTool(tooltips=[('Permit Number','@permitNumber'),
-# 							  ('Conditioned Square Footage','@Conditioned_Square_Footage{0,0}'),
-# 							  ('Garage Square Footage','@Garage_Square_Footage{0,0}'),
-# 							  ('Other Square Footage','@Other_Square_Footage{0,0}')])
-# 	fig.add_tools(hover)
-# 	return render_template('index.html',title='Home',fig=file_html(fig,CDN,"Plot"))
-# >>>>>>> 29278fd76045a7dd8593bd33e6d45c5c67ae7956
