@@ -129,8 +129,8 @@ def index():
 				   data=df,
 				   ax=vax,
 				   inner=None)
-	vfig.set_xlabel='Days'
-	vfig.set_ylabel='Project Type'
+	vax.set_xlabel='Days'
+	vax.set_ylabel='Project Type'
 	# plt.show()
 	img=io.BytesIO()
 	vfig.savefig(img,format='png',bbox_inches='tight')
@@ -139,6 +139,11 @@ def index():
 	img_base64=base64.b64encode(img.read()).decode('utf-8')
 	vfig_out='<img src="data:image/png;base64,{}">'.format(img_base64)
 
+	counts=pd.DataFrame(df.groupby('Select Project Type').count()['_id'])
+	counts.reset_index(inplace=True)
+	counts.rename(columns={'Select Project Type':'Project Type',
+						   '_id':'Count'},
+				  inplace=True,errors="raise")
 	return render_template('index.html',
 							title='Home',
 							fig=file_html(tsf_plot,CDN,"Plot"),
@@ -150,5 +155,6 @@ def index():
 							final_approval_time=df['Final Approval Time'].mean(),
 							inspection_scheduled_days=df['Average Inspection Scheduled Days'].mean(),
 							days_between_inspections=df['Average Between Inspection Days'].mean(),
-							number_of_inspections=df['Number of Inspections'].mean()
+							number_of_inspections=df['Number of Inspections'].mean(),
+							counts=counts.to_html(classes="table",index=False)
 							)
