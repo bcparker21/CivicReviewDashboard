@@ -88,7 +88,7 @@ def index():
 	df['Conditioned_Space_Sq_Footage']=df['Conditioned_Space_Sq_Footage'].astype(float)
 	df['Garage_Sq_Footage']=df['Garage_Sq_Footage'].astype(float)
 	df['Other_Covered_or_Non_Conditioned_Space_Sq_Footage']=df['Other_Covered_or_Non_Conditioned_Space_Sq_Footage'].astype(float)
-	df['Total Square Footage']=df['Conditioned_Space_Sq_Footage']+df['Garage_Sq_Footage']+df['Other_Covered_or_Non_Conditioned_Space_Sq_Footage']
+	df['Total Square Footage']=df['Conditioned_Space_Sq_Footage'].fillna(0)+df['Garage_Sq_Footage'].fillna(0)+df['Other_Covered_or_Non_Conditioned_Space_Sq_Footage'].fillna(0)
 
 # Square Footage Scatter
 	fig=figure(x_axis_type='datetime')

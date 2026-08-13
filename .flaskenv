@@ -1,1 +1,2 @@
 FLASK_APP=dashboard.py
+cr_api_key=cr_pk_live_o4ovygBjeU4oCEu9rIqfIc777UA1Iz6k
