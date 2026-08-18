@@ -10,7 +10,21 @@
 		<table class="table">
 			<tr>
 				<td>
+					<strong>Metric</strong>
+				</td>
+				<td>
+					<strong>Median</strong>
+				</td>
+				<td>
+					<strong>Mean</strong>
+				</td>
+			</tr>
+			<tr>
+				<td>
 					Average Preapproval Time:
+				</td>
+				<td>
+					{{ "{:,.1f}".format(preapproval_time_median) }} days
 				</td>
 				<td>
 					{{ "{:,.1f}".format(preapproval_time) }} days
@@ -21,12 +35,18 @@
 					Average Plan Review Time:
 				</td>
 				<td>
+					{{ "{:,.1f}".format(plan_review_time_median) }} days
+				</td>
+				<td>
 					{{ "{:,.1f}".format(plan_review_time) }} days
 				</td>
 			</tr>
 			<tr>
 				<td>
 					Average Time for Applicants to Resubmit Plans:
+				</td>
+				<td>
+					{{ "{:,.1f}".format(resubmittal_time_median) }} days
 				</td>
 				<td>
 					{{ "{:,.1f}".format(resubmittal_time) }} days
@@ -37,12 +57,18 @@
 					Average Number of Plan Reviews:
 				</td>
 				<td>
+					{{ "{:,.1f}".format(num_reviews_median) }} days
+				</td>
+				<td>
 					{{ "{:,.1f}".format(num_reviews) }}
 				</td>
 			</tr>
 			<tr>
 				<td>
 					<strong>Average Time from Submittal to Receipt of Building Permit:</strong>
+				</td>
+				<td>
+					<strong>{{ "{:,.1f}".format(final_approval_time_median) }} days</strong>
 				</td>
 				<td>
 					<strong>{{ "{:,.1f}".format(final_approval_time) }} days</strong>
@@ -97,4 +123,5 @@
 		{{ counts | safe }}
 	</div>
 </div>
+<!-- <div>{{ data | safe }}</div> -->
 {% endblock %}

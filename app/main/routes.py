@@ -45,8 +45,8 @@ def index():
 		df.loc[index,'Preapproval Datetime']=datetime.fromisoformat(row['preReview']['history'][-1]['dateReviewed']) if row['preReview']['history'] else pd.NaT
 		df.loc[index,'Final Approval Datetime']=datetime.fromisoformat(row['finalReview']['history'][-1]['dateReviewed']) if row['finalReview']['history'] else pd.NaT
 	for index, row in df.iterrows():
-		df.loc[index,'Preapproval Time']=np.busday_count(row['_created'].date(),row['Preapproval Datetime'].date(),weekmask=[1,1,1,1,0,0,0]) if row['Preapproval Datetime'] is not pd.NaT else np.nan
-		df.loc[index, 'Final Approval Time']=np.busday_count(row['Preapproval Datetime'].date(),row['Final Approval Datetime'].date(),weekmask=[1,1,1,1,0,0,0]) if row['Final Approval Datetime'] is not pd.NaT else np.nan
+		df.loc[index,'Preapproval Time']=np.busday_count(row['_created'].date(),row['Preapproval Datetime'].date()) if row['Preapproval Datetime'] is not pd.NaT else np.nan
+		df.loc[index, 'Final Approval Time']=np.busday_count(row['Preapproval Datetime'].date(),row['Final Approval Datetime'].date()) if row['Final Approval Datetime'] is not pd.NaT else np.nan
 		if df.loc[index,'planReviews']:
 			submissions=df.loc[index,'planReviews'][0]['submissions']
 			for i in range(len(submissions)):
@@ -148,13 +148,19 @@ def index():
 							title='Home',
 							fig=file_html(tsf_plot,CDN,"Plot"),
 							preapproval_time=df['Preapproval Time'].mean(),
+							preapproval_time_median=df['Preapproval Time'].median(),
 							plan_review_time=df['Average Plan Review Days'].mean(),
+							plan_review_time_median=df['Average Plan Review Days'].median(),
 							num_reviews=df['Plan Reviews'].mean(),
+							num_reviews_median=df['Plan Reviews'].median(),
 							resubmittal_time=df['Average Response Days'].mean(),
+							resubmittal_time_median=df['Average Response Days'].median(),
 							vfig=vfig_out,
 							final_approval_time=df['Final Approval Time'].mean(),
+							final_approval_time_median=df['Final Approval Time'].median(),
 							inspection_scheduled_days=df['Average Inspection Scheduled Days'].mean(),
 							days_between_inspections=df['Average Between Inspection Days'].mean(),
 							number_of_inspections=df['Number of Inspections'].mean(),
-							counts=counts.to_html(classes="table",index=False)
+							counts=counts.to_html(classes="table",index=False),
+							data=df[['permitNumber','Preapproval Time']].to_html()
 							)
