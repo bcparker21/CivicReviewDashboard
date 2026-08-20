@@ -150,21 +150,21 @@ def index():
 				  inplace=True,errors="raise")
 # Land Use
 # Pull Data
-	lu_response=requests.get(permit_url.format('{}&isActive=true'.format(lu_id)),headers=permit_params_lu).json()
-	lu_df=pd.DataFrame(lu_response)
-# Manipulate into Usable Data
-	for index, row in lu_df.iterrows():
-		for i in range(len(row['formData']['fields'])):
-			lu_df.loc[index,row['formData']['fields'][i]['label']]=row['formData']['fields'][i]['value']
-		# start=np.datetime64(row['formData']['dateSubmitted']).astype(datetime)
-		# end=np.datetime64(row['finalReview']['history'][0]['dateReviewed']).astype(datetime if len(row['finalReview'])>0 else np.nan)
-		# lu_df.loc[index,'Final Approval Time']=np.busday_count(start.date(),end.date()) if end is not pd.NaT else np.nan
-	lu_counts=pd.DataFrame(lu_df.groupby('Permit Type (select all that apply)').count()['_id'])
-	lu_counts.reset_index(inplace=True)
-	lu_counts['Permit Type (select all that apply)']=lu_counts['Permit Type (select all that apply)'].str.strip("[]'\"")
-	lu_counts_fig=figure(y_range=lu_counts['Permit Type (select all that apply)'],title='Land Use Application Types')
-	lu_counts_fig.hbar(y=lu_counts['Permit Type (select all that apply)'].tolist(),right=lu_counts['_id'].tolist(),height=.6)
-	created=lu_df['formData']
+# 	lu_response=requests.get(permit_url.format('{}&isActive=true'.format(lu_id)),headers=permit_params_lu).json()
+# 	lu_df=pd.DataFrame(lu_response)
+# # Manipulate into Usable Data
+# 	for index, row in lu_df.iterrows():
+# 		for i in range(len(row['formData']['fields'])):
+# 			lu_df.loc[index,row['formData']['fields'][i]['label']]=row['formData']['fields'][i]['value']
+# 		# start=np.datetime64(row['formData']['dateSubmitted']).astype(datetime)
+# 		# end=np.datetime64(row['finalReview']['history'][0]['dateReviewed']).astype(datetime if len(row['finalReview'])>0 else np.nan)
+# 		# lu_df.loc[index,'Final Approval Time']=np.busday_count(start.date(),end.date()) if end is not pd.NaT else np.nan
+# 	lu_counts=pd.DataFrame(lu_df.groupby('Permit Type (select all that apply)').count()['_id'])
+# 	lu_counts.reset_index(inplace=True)
+# 	lu_counts['Permit Type (select all that apply)']=lu_counts['Permit Type (select all that apply)'].str.strip("[]'\"")
+# 	lu_counts_fig=figure(y_range=lu_counts['Permit Type (select all that apply)'],title='Land Use Application Types')
+# 	lu_counts_fig.hbar(y=lu_counts['Permit Type (select all that apply)'].tolist(),right=lu_counts['_id'].tolist(),height=.6)
+	# created=lu_df['formData']
 	return render_template('index.html',
 							title='Community Development Dashboard',
 							fig=file_html(tsf_plot,CDN,"Plot"),
@@ -183,6 +183,6 @@ def index():
 							days_between_inspections=df['Average Between Inspection Days'].mean(),
 							number_of_inspections=df['Number of Inspections'].mean(),
 							counts=counts.to_html(classes="table",index=False),
-							lu_counts_fig=file_html(lu_counts_fig,CDN,"Plot"),
-							data=lu_df.to_html()
+							# lu_counts_fig=file_html(lu_counts_fig,CDN,"Plot"),
+							# data=lu_df.to_html()
 							)
