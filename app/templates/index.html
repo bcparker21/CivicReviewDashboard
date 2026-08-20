@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="h1" align="center">Building Permitting</div>
 <div class="row">
 	<div class="col-sm-4">
 		<h1 class="text-center">Plan Review</h1>
@@ -123,5 +124,7 @@
 		{{ counts | safe }}
 	</div>
 </div>
+<div class="h1" align="center">Land Use</div>
+<div>{{ lu_counts_fig | safe }}</div>
 <!-- <div>{{ data | safe }}</div> -->
 {% endblock %}
