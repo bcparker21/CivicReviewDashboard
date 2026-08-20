@@ -150,8 +150,8 @@ def index():
 				  inplace=True,errors="raise")
 # Land Use
 # Pull Data
-	response=requests.get(permit_url.format('{}&isActive=true'.format(lu_id)),headers=permit_params_lu).json()
-	lu_df=pd.DataFrame(response)
+	response=lu_requests.get(permit_url.format('{}&isActive=true'.format(lu_id)),headers=permit_params_lu).json()
+	lu_df=pd.DataFrame(lu_response)
 # Manipulate into Usable Data
 	for index, row in lu_df.iterrows():
 		for i in range(len(row['formData']['fields'])):
